@@ -19,10 +19,12 @@ import java.util.stream.Stream;
 @Configuration
 public class ProcessingJsonProperties {
 
+    private final String EVENT_TYPE = "event_type";
+    private final String DATA ="data" ;
+
     // collect stats
     private Map<String, Integer> eventTypes = new ConcurrentHashMap<>();
     private Map<String, Integer> dataMap = new ConcurrentHashMap<>();
-    private String event_type;
 
 
     public Map<String, Integer> getEventTypesStats() {
@@ -99,11 +101,11 @@ public class ProcessingJsonProperties {
                             jsonObject.toMap()
                                     .forEach((key, value) ->
                                     {
-                                        event_type = "event_type";
-                                        if (key.equals(event_type)) {
+
+                                        if (key.equals(EVENT_TYPE)) {
                                             updateEventTypeCounterByType.accept(((String) value));
                                         }
-                                        if (key.equals("data")) {
+                                        if (key.equals(DATA)) {
                                             updateDataWordsCounter.accept(((String) value));
                                         }
                                     });
